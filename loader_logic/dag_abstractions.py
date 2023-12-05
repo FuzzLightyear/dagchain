@@ -1,13 +1,15 @@
 from abc import ABC
-from typing import List
+from typing import List, TypeVar
 from dagster import op
 from dagster import asset, op, job, AssetsDefinition, AssetKey, ScheduleDefinition, Definitions
 from langchain.document_loaders.base import BaseLoader
 from loader_logic.base_loaders import source_loader, output_loader
 
+S = TypeVar('S', Optional[str])
+
 class DagChainBaseLoader(ABC):
 
-    def __init__(self, name: str, loader: List[BaseLoader], schedule='daily'):
+    def __init__(self, name: str, loader: List[BaseLoader], schedule: S = 'daily'):
         """Initialize with webpage path."""
         self.name = name
         self.loader = loader
